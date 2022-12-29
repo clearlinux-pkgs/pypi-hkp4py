@@ -4,7 +4,7 @@
 #
 Name     : pypi-hkp4py
 Version  : 0.2.3.1
-Release  : 10
+Release  : 11
 URL      : https://files.pythonhosted.org/packages/12/8f/cfbf0ec8946dcbacab876a8e82d2f3679527d1974f5739706cbb27a5e311/hkp4py-0.2.3.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/12/8f/cfbf0ec8946dcbacab876a8e82d2f3679527d1974f5739706cbb27a5e311/hkp4py-0.2.3.1.tar.gz
 Summary  : A Library to get Keys from a keyserver specified
@@ -14,6 +14,9 @@ Requires: pypi-hkp4py-python = %{version}-%{release}
 Requires: pypi-hkp4py-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
 BuildRequires : pypi(requests)
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 A Library to get GPG/PGP keys from a Keyserver.
@@ -61,15 +64,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656401591
+export SOURCE_DATE_EPOCH=1672279414
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
